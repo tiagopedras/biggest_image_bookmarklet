@@ -2,10 +2,10 @@ javascript: (function () {
     // parseUri 1.2.2
     // (c) Steven Levithan <stevenlevithan.com>
     // MIT License
-    
+    // (changed to be used in bookmarklet by @tiagopedras)
     function parseUri (str) {
     	var	o   = parseUri.options,
-    		m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+    		m   = /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/.exec(str),
     		uri = {},
     		i   = 14;
     
@@ -20,15 +20,10 @@ javascript: (function () {
     };
     
     parseUri.options = {
-    	strictMode: false,
     	key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
     	q:   {
     		name:   "queryKey",
     		parser: /(?:^|&)([^&=]*)=?([^&]*)/g
-    	},
-    	parser: {
-    		strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-    		loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
     	}
     };
     
